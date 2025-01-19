@@ -10,7 +10,7 @@
 
 <body>
     <h1>{{ $memo->title }}</h1>
-    <p>{{ $memo->body }}</p>
+    <p>{!! nl2br(e($memo->body)) !!}</p>
     <p>{{ $memo }}</p>
 </body>
 

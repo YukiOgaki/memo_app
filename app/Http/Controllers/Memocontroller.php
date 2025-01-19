@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Memo;
-use Illuminate\Http\Request;
+use App\Http\Requests\MemoRequest;
+
 
 class Memocontroller extends Controller
 {
@@ -21,7 +22,7 @@ class Memocontroller extends Controller
     }
 
     // storeページへ移動
-    public function store(Request $request)
+    public function store(MemoRequest $request)
     {
         //インスタンスの作成
         $memo = new Memo();
@@ -40,5 +41,37 @@ class Memocontroller extends Controller
     {
         $memo = Memo::find($id);
         return view('memos.show', ['memo' => $memo]);
+    }
+
+    // editページへ移動
+    public function edit($id)
+    {
+        $memo = Memo::find($id);
+        return view('memos.edit', ['memo' => $memo]);
+    }
+
+    // updateページへ移動
+    public function update(MemoRequest $request, $id)
+    {
+        //更新対象データの取得
+        $memo = Memo::find($id);
+
+        $memo->title = $request->title;
+        $memo->body = $request->body;
+
+        $memo->save();
+
+        //更新したらindexに戻る
+        return redirect(route('memos.index'));
+    }
+
+    // destroyページへ移動
+    public function destroy($id)
+    {
+        $memo = Memo::find($id);
+        $memo->delete();
+
+        //削除したらindexに戻る
+        return redirect(route('memos.index'));
     }
 }

@@ -13,10 +13,8 @@
     <ul>
         @foreach ($memos as $memo)
             <li><a href="{{ route('memos.show', $memo) }}">{{ $memo->title }}</a></li>
-            <div>{{ $memo }}</div>
         @endforeach
     </ul>
-    <div>{{ $memos }}</div>
 </body>
 
 </html>
